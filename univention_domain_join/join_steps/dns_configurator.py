@@ -62,7 +62,9 @@ class DnsConfigurator(object):
 			)
 			raise DnsConfigurationException()
 
-		if DnsConfiguratorNetworkManager().works_on_this_system():
+		if DnsConfiguratorSystemd().works_on_this_system():
+			self.working_configurator = DnsConfiguratorSystemd()
+                elif DnsConfiguratorNetworkManager().works_on_this_system():
 			self.working_configurator = DnsConfiguratorNetworkManager()
 		else:
 			self.working_configurator = DnsConfiguratorTrusty()
